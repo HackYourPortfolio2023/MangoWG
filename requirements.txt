@@ -5,6 +5,6 @@ mdurl==0.1.2
 Pygments==2.15.1
 rich==13.4.1
 shellingham==1.5.0.post1
-tinyhtml==1.2.0
 typer==0.9.0
 typing_extensions==4.6.3
+yattag==1.15.1
