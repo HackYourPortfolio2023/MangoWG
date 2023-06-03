@@ -11,6 +11,8 @@ TOKEN = os.environ.get("MANGO_TOKEN")
 SECRET = os.environ.get("SECRET")
 CLIENT_ID = os.environ.get("CLIENT_ID")
 
+print(CLIENT_ID)
+
 
 def get_token(text):
     print(text)
@@ -47,7 +49,6 @@ def auth():
         r = requests.post(
             f"https://github.com/login/oauth/access_token?client_id={CLIENT_ID}&device_code={code}&grant_type=urn:ietf:params:oauth:grant-type:device_code")
         os.system(f"dotenv set MANGO_TOKEN {get_token(r.text)['access_token']}")
-        os.system(f"dotenv set REPO {create_repo()}")
 
     print("Ready to use!")
 
@@ -95,3 +96,7 @@ def update(files, repo_name=os.environ.get("REPO")):
     )
 
     master_ref.edit(sha=commit.sha)
+
+# name = create_repo()
+# print(name)
+# os.system(f"dotenv set REPO {name}")

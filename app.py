@@ -1,3 +1,4 @@
+import os
 from typing import Annotated
 from util import bot
 
@@ -9,13 +10,9 @@ from rich.progress import track
 app = typer.Typer()
 
 
-@app.command("hello")
-def hello(username: str):
-    print(f"Hello: {username}")
-
-
 @app.command()
 def start():
+    '''Starts the program'''
     print("Welcome!")
     print("Authenticating")
     bot.auth()
@@ -23,8 +20,16 @@ def start():
 
 @app.command()
 def push():
-    files = ['util/text.txt']
+    '''Pushes the files in the util folder to your Github repository'''
+    cwd = os.getcwd()
+    files = ['./index.html']
     bot.update(files)
+    print("Success!")
+
+@app.command()
+def newRepo():
+    '''Creates a repository in your Github account called "portfolio"'''
+    bot.create_repo()
     print("Success!")
 
 @app.command("create")
