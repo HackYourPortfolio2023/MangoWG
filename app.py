@@ -1,14 +1,13 @@
 import os
 from typing import Annotated
 from util import bot
+import templateGeneratorYattag
 
 import time
 import typer
 from rich.progress import track
 
-
 app = typer.Typer()
-
 
 @app.command()
 def start():
@@ -17,12 +16,10 @@ def start():
     print("Authenticating")
     bot.auth()
 
-
 @app.command()
 def push():
     '''Pushes the files in the util folder to your Github repository'''
-    cwd = os.getcwd()
-    files = ['./index.html']
+    files = ['index.html']
     bot.update(files)
     print("Success!")
 
@@ -33,7 +30,7 @@ def newRepo():
     print("Success!")
 
 @app.command("create")
-def create():
+def createTemplate():
     '''Creates a new html template if not already exists'''
 
     for value in track(range(100), description="Processing..."):
