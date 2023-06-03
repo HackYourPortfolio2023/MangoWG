@@ -1,0 +1,97 @@
+from github import Github, InputGitTreeElement
+import os
+from dotenv import load_dotenv
+from os.path import join, dirname
+import webbrowser
+import requests
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+TOKEN = os.environ.get("MANGO_TOKEN")
+SECRET = os.environ.get("SECRET")
+CLIENT_ID = os.environ.get("CLIENT_ID")
+
+
+def get_token(text):
+    print(text)
+    arr = text.split('&')
+    tokens = {}
+    for a in arr:
+        t = a.split('=')
+        tokens[t[0]] = t[1]
+    return tokens
+
+
+def get_user():
+    g = Github(TOKEN)
+    user = g.get_user()
+    return user.login
+
+
+def create_repo():
+    g = Github(TOKEN)
+    user = g.get_user()
+    user.create_repo("portfolio")
+    return f"{user}/portfolio"
+
+
+def auth():
+    token = TOKEN
+    if not token:
+        print("Creating token")
+        r = requests.post(f'https://github.com/login/device/code?client_id={CLIENT_ID}')
+        webbrowser.open('https://github.com/login/device')
+        code = get_token(r.text)['device_code']
+        print(code)
+        ready = input('Press enter after entering code at GitHub')
+        r = requests.post(
+            f"https://github.com/login/oauth/access_token?client_id={CLIENT_ID}&device_code={code}&grant_type=urn:ietf:params:oauth:grant-type:device_code")
+        os.system(f"dotenv set MANGO_TOKEN {get_token(r.text)['access_token']}")
+        os.system(f"dotenv set REPO {create_repo()}")
+
+    print("Ready to use!")
+
+
+def create_blobs(files, repo):
+    output = {}
+    for file in files:
+        f = open(file, 'r')
+        output[file] = repo.create_git_blob(
+            content=f.read(),
+            encoding='utf-8',
+        )
+    return output
+
+
+def create_tree(blobs, repo, master_sha):
+    tree = []
+    for blob in blobs:
+        tree.append(InputGitTreeElement(
+            path=blob,
+            mode="100644",
+            type="blob",
+            sha=blobs[blob].sha,
+        ))
+    return repo.create_git_tree(
+        tree=tree,
+        base_tree=repo.get_git_tree(master_sha)
+    )
+
+
+def update(files, repo_name=os.environ.get("REPO")):
+    g = Github(TOKEN)
+    repo = g.get_repo(repo_name)
+    blobs = create_blobs(files, repo)
+
+    master_ref = repo.get_git_ref('heads/main')
+    master_sha = master_ref.object.sha
+
+    new_tree = create_tree(blobs, repo, master_sha)
+
+    commit = repo.create_git_commit(
+        message="Update portfolio",
+        tree=repo.get_git_tree(sha=new_tree.sha),
+        parents=[repo.get_git_commit(master_sha)],
+    )
+
+    master_ref.edit(sha=commit.sha)
