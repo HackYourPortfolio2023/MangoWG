@@ -1,6 +1,6 @@
+import bot
 import os
 from typing import Annotated
-from util import bot
 import templateGeneratorYattag
 
 import time
@@ -16,6 +16,12 @@ def start():
     print("Authenticating")
     bot.auth()
 
+
+@app.command()
+def new():
+    bot.create_repo()
+
+
 @app.command()
 def push():
     '''Pushes the files in the util folder to your Github repository'''
@@ -23,11 +29,6 @@ def push():
     bot.update(files)
     print("Success!")
 
-@app.command()
-def newRepo():
-    '''Creates a repository in your Github account called "portfolio"'''
-    bot.create_repo()
-    print("Success!")
 
 @app.command("create")
 def createTemplate():
@@ -44,9 +45,7 @@ def createTemplate():
         if value == 50:
             print(f"Creating new template")
 
-
     print(f"Template successfully created")
-
 
 
 if __name__ == "__main__":

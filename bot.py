@@ -1,4 +1,4 @@
-from github import Github, InputGitTreeElement
+from github import Github, InputGitTreeElement, Installation
 import os
 from dotenv import load_dotenv
 from os.path import join, dirname
@@ -24,17 +24,17 @@ def get_token(text):
     return tokens
 
 
-def get_user():
-    g = Github(TOKEN)
-    user = g.get_user()
-    return user.login
-
-
 def create_repo():
     g = Github(TOKEN)
     user = g.get_user()
-    user.create_repo("portfolio")
-    return f"{user}/portfolio"
+    for repo in user.get_repos():
+        if repo.name == 'portfolio':
+            break
+
+    user.create_repo(f"portfolio")
+    os.system(f"dotenv set REPO {user.login}/portfolio")
+    repo = g.get_repo(f"{user.login}/portfolio")
+    repo.create_file("readme.md", "Add readme", "Hello!")
 
 
 def auth():
@@ -50,6 +50,8 @@ def auth():
             f"https://github.com/login/oauth/access_token?client_id={CLIENT_ID}&device_code={code}&grant_type=urn:ietf:params:oauth:grant-type:device_code")
         os.system(f"dotenv set MANGO_TOKEN {get_token(r.text)['access_token']}")
 
+    print('Give access to bot')
+    webbrowser.open('https://github.com/apps/mangowg-bot')
     print("Ready to use!")
 
 
