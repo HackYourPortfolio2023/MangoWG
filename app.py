@@ -9,9 +9,10 @@ from rich.progress import track
 
 app = typer.Typer()
 
+
 @app.command()
 def start():
-    '''Starts the program'''
+    """Starts the program"""
     print("Welcome!")
     print("Authenticating")
     bot.auth()
@@ -19,12 +20,13 @@ def start():
 
 @app.command()
 def new():
+    """Creates a new repo: Portfolio"""
     bot.create_repo()
 
 
 @app.command()
 def push():
-    '''Pushes the files in the util folder to your Github repository'''
+    """Pushes the files in the util folder to your GitHub repository"""
     files = ['index.html']
     bot.update(files)
     print("Success!")
@@ -32,7 +34,7 @@ def push():
 
 @app.command("create")
 def createTemplate():
-    '''Creates a new html template if not already exists'''
+    """Creates a new html template if not already exists"""
 
     for value in track(range(100), description="Processing..."):
         time.sleep(0.01)
