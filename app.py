@@ -1,7 +1,8 @@
 import os
 from typing import Annotated
-from util import bot
-import templateGeneratorYattag
+import GithubBot
+# import TemplateGeneratorYattag
+# import GetGithubInfo
 
 import time
 import typer
@@ -14,19 +15,19 @@ def start():
     '''Starts the program'''
     print("Welcome!")
     print("Authenticating")
-    bot.auth()
+    GithubBot.auth()
 
 @app.command()
 def push():
     '''Pushes the files in the util folder to your Github repository'''
     files = ['index.html']
-    bot.update(files)
+    GithubBot.update(files)
     print("Success!")
 
 @app.command()
 def newRepo():
     '''Creates a repository in your Github account called "portfolio"'''
-    bot.create_repo()
+    GithubBot.create_repo()
     print("Success!")
 
 @app.command("create")
@@ -46,6 +47,11 @@ def createTemplate():
 
 
     print(f"Template successfully created")
+
+@app.command("getRepos")
+def getRepos():
+    '''Gets all the repositories in your Github account'''
+    GithubBot.getRepoInfo()
 
 
 

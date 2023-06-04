@@ -97,6 +97,21 @@ def update(files, repo_name=os.environ.get("REPO")):
 
     master_ref.edit(sha=commit.sha)
 
+def getGithubInfo():
+    g = Github(TOKEN)
+    user = g.get_user()
+    return user.login
+
+def getRepoInfo():
+    g = Github(TOKEN)
+
+    for repo in g.get_user().get_repos():
+        # get the repo name, about, and url
+        print(repo.name)
+        print(repo.description)
+        print(repo.html_url)
+
+
 # name = create_repo()
 # print(name)
 # os.system(f"dotenv set REPO {name}")
