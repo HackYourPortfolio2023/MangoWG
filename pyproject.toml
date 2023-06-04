@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mangowg"
-version = "0.1.12"
+version = "0.1.13"
 description = "A portfolio website generator"
 authors = ["Amelia <53657436+AmeliaTYR@users.noreply.github.com>"]
 readme = "README.md"

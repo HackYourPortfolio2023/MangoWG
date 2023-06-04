@@ -13,6 +13,10 @@ Get started `python mangowg.py --help`
 
 To use command selection rather than typing the command name, use `python mangowg.py cut` then select the command to be executed.
 
+Run the commands in order
+```
+start >  new > updateWholeProfile > getGithubInfo > getRepos > selectRepos > updateTemplate > push 
+```
 
 ## PyPi publish 
 Publish new package
