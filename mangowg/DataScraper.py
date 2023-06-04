@@ -1,7 +1,6 @@
-from github import Github, InputGitTreeElement, Installation
+from github import Github, InputGitTreeElement
 import os
 from dotenv import load_dotenv
-from os.path import join, dirname
 import webbrowser
 import requests
 
@@ -10,6 +9,7 @@ load_dotenv(dotenv_path)
 TOKEN = os.environ.get("MANGO_TOKEN")
 SECRET = os.environ.get("SECRET")
 CLIENT_ID = "Iv1.e5e3b2a21098fb61"
+
 
 def get_token(text):
     # print(text)
@@ -107,6 +107,7 @@ def update(files, repo_name=os.environ.get("REPO")):
 
     master_ref.edit(sha=commit.sha)
 
+
 def getGithubInfo():
     '''Returns the username of the authenticated user'''
     g = Github(TOKEN)
@@ -119,6 +120,7 @@ def getGithubInfo():
     }
 
     return userInfo
+
 
 def getRepoInfo():
     '''Returns the repo names of the authenticated user'''
