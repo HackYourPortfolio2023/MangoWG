@@ -11,9 +11,6 @@ TOKEN = os.environ.get("MANGO_TOKEN")
 SECRET = os.environ.get("SECRET")
 CLIENT_ID = os.environ.get("CLIENT_ID")
 
-print(CLIENT_ID)
-
-
 def get_token(text):
     print(text)
     arr = text.split('&')
@@ -130,9 +127,9 @@ def getRepoInfo():
 
     for repo in g.get_user().get_repos():
         # get the repo name, about, and url
-        print(repo.name)
-        print(repo.description)
-        print(repo.html_url)
+        # print(repo.name)
+        # print(repo.description)
+        # print(repo.html_url)
 
         repoInfo = {
             "name": repo.name,

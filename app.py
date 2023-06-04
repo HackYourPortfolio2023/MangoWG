@@ -1,6 +1,7 @@
+import json
 import GithubBot
-# import TemplateGeneratorYattag
-# import GetGithubInfo
+import TemplateGeneratorYattag
+
 from pprint import pprint
 import inquirer
 
@@ -59,18 +60,55 @@ def createTemplate():
 def getRepos():
     '''Gets all the repositories in your Github account'''
     reposData = GithubBot.getRepoInfo()
-    print(reposData)
+    # print(reposData)
+
+    # Save the data to a json file
+    with open('reposData.json', 'w') as outfile:
+        json.dump(reposData, outfile)
 
 @app.command("getInfo")
 def getInfo():
     '''Gets your Github account information'''
     githubUserData = GithubBot.getGithubInfo()
-    print(githubUserData)
+    # print(githubUserData)
+
+    # Save the data to a json file
+    with open('githubUserData.json', 'w') as outfile:
+        json.dump(githubUserData, outfile)
+
+@app.command("updateTemplate")
+def updateTemplate():
+    '''Updates the template with the data'''
+    print("Loading data... ")
+
+    for value in track(range(3), description="Processing..."):
+        if value == 0:
+            # Load the data from the json files
+            with open('userData.json') as json_file:
+                userData = json.load(json_file)
+
+        if value == 1:
+            with open('reposData.json') as json_file:
+                reposData = json.load(json_file)
+
+        if value == 2:
+            with open('githubUserData.json') as json_file:
+                githubUserData = json.load(json_file)
+
+    print("Updating template... ")
+
+    TemplateGeneratorYattag.updateTemplate(userData, reposData, githubUserData)
+
+    print("Template Updated!")
+
 
 @app.command("selectRepos")
 def selectRepos():
     '''Selects the repositories to be displayed in your portfolio'''
     print("Selecting repos... ")
+
+    with open('reposData.json') as json_file:
+        reposData = json.load(json_file)
 
     if len(reposData) == 0:
         print("You have no repos!")
@@ -104,32 +142,27 @@ def selectRepos():
 def updateUserData():
     '''Updates the user data'''
     print("Updating profile... ")
-    for value in track(range(len(8)), description="Processing..."):
-        if value == 0:
-            print("Enter your name: ")
-            userData['name'] = input()
-        elif value == 1:
-            print("Enter your email: ")
-            userData['email'] = input()
-        elif value == 2:
-            print("Enter your phone number: ")
-            userData['phone'] = input()
-        elif value == 3:
-            print("Enter your bio: ")
-            userData['bio'] = input()
-        elif value == 4:
-            print("Enter your about: ")
-            userData['about'] = input()
-        elif value == 5:
-            print("Enter your twitter: ")
-            userData['socialMedia']['twitter'] = input()
-        elif value == 6:
-            print("Enter your facebook: ")
-            userData['socialMedia']['facebook'] = input()
-        elif value == 7:
-            print("Enter your instagram: ")
-            userData['socialMedia']['instagram'] = input()
 
+    print("Enter your name: ")
+    userData['name'] = input()
+    print("Enter your email: ")
+    userData['email'] = input()
+    print("Enter your phone number: ")
+    userData['phone'] = input()
+    print("Enter your bio: ")
+    userData['bio'] = input()
+    print("Enter your about: ")
+    userData['about'] = input()
+    print("Enter your twitter: ")
+    userData['socialMedia']['twitter'] = input()
+    print("Enter your facebook: ")
+    userData['socialMedia']['facebook'] = input()
+    print("Enter your instagram: ")
+    userData['socialMedia']['instagram'] = input()
+
+    # Save the data to a json file
+    with open('userData.json', 'w') as outfile:
+        json.dump(userData, outfile)
 
     print("Profile Updated!")
 
@@ -137,6 +170,11 @@ def updateUserData():
 @app.command("updateProfileDetails")
 def updateUserDataIndividually():
     '''Lets the user select which data to update'''
+
+    # Load the data from the json files
+    with open('userData.json') as json_file:
+        userData = json.load(json_file)
+
     questions = [
         inquirer.List(
             "value",
@@ -146,7 +184,13 @@ def updateUserDataIndividually():
     ]
 
     answers = inquirer.prompt(questions)
-    pprint(answers)
+
+    print("Enter the new " + answers["value"] + ": ")
+    userData[answers["value"]] = input()
+
+    # Save the data to a json file
+    with open('userData.json', 'w') as outfile:
+        json.dump(userData, outfile)
 
 @app.command("cut")
 def selectComamand():

@@ -1,13 +1,15 @@
 from yattag import Doc
 
 
-def generateNewHTML(userData, projectsData):
+def generateNewHTML(userData, reposData, githubUserData):
     '''
     Generates a new HTML from user input
 
     Parameters
     ------------
         userData: user data
+        reposData: projects data
+        githubUserData: github user data
     '''
 
     # Create a new document
@@ -88,27 +90,26 @@ def generateNewHTML(userData, projectsData):
                     # Profile Photo
                     with tag('div', klass='col-lg-4 d-flex align-items-center justify-content-center flex-wrap'):
                         doc.stag('img',
-                                 src='https://www.w3schools.com/bootstrap4/img_avatar3.png',
-                                 alt='Avatar',
+                                 src=userData['avatar_url'],
+                                 alt='GitHub profile photo',
                                  klass='',
                                  style='width: 200px; height: 200px; border-radius: 50%')
                         with tag('div', klass='d-flex flex-column align-items-center justify-content-center'):
                             with tag('h1'):
                                 text(userData['name'])
-                            with tag('p'):
+                            with tag('p', style='padding-left: 10px; padding-right: 10px'):
                                 text(userData['bio'])
 
-            # Content
+            # About
             with tag('div', klass='row d-flex align-items-center justify-content-center', id='about-section'):
+                # with tag('div', klass='col-sm-6'):
+                #     doc.stag('img',
+                #              src='https://picsum.photos/600/600',
+                #              klass='card-img-top',
+                #              alt='...',
+                #              height='300px')
                 with tag('div', klass='col-sm-6'):
-                    doc.stag('img',
-                             src='https://picsum.photos/600/600',
-                             klass='card-img-top',
-                             alt='...',
-                             height='300px')
-                with tag('div', klass='col-sm-6'):
-                    with tag('div', style='padding: 20px',
-                             id='about-section'):
+                    with tag('div', style='padding: 20px'):
                         with tag('h2'):
                             text('About')
                         with tag('p'):
@@ -124,7 +125,7 @@ def generateNewHTML(userData, projectsData):
                 doc.stag('br')
 
                 with tag('div', klass='row text-center'):
-                    for _ in range(3):
+                    for i in range(len(reposData)):
                         with tag('div', klass='col-lg-4', style='padding: 10px'):
                             # doc.stag('img',
                             #          src='https://picsum.photos/140/140',
@@ -132,12 +133,11 @@ def generateNewHTML(userData, projectsData):
                             #          style='width: 140px; height: 140px; border-radius: 50%',
                             #          alt='...')
                             with tag('h3', klass='fw-normal'):
-                                text('Heading')
+                                text(reposData[i].name)
                             with tag('p'):
-                                text(
-                                    'Some representative placeholder content for the three columns of text below the carousel. This is the first column.')
+                                text(reposData[i].description)
                             with tag('p'):
-                                with tag('a', klass='btn btn-secondary', href='#'):
+                                with tag('a', klass='btn btn-secondary', href=reposData[i].html_url, target='_blank'):
                                     text('View details')
 
             doc.stag('br')
@@ -178,19 +178,66 @@ def generateNewHTML(userData, projectsData):
         file.write(doc.getvalue())
 
 
-# Test
-if __name__ == '__main__':
-    userData = {
-        'name': 'John Doe',
-        'email': 'johnDoe@gmail.com',
-        'phone': '(123) 456-7890',
-        'bio': 'An aspiring web developer.',
-        'about': 'I am a web developer with experience in HTML, CSS, JavaScript, and PHP. I am passionate about creating beautiful and functional websites.',
-        'socialMedia': {
-            'twitter': 'https://twitter.com/',
-            'facebook': 'https://www.facebook.com/',
-            'instagram': 'https://www.instagram.com/'
-        }
-    }
+# # Test
+# if __name__ == '__main__':
+#     userData = {
+#         'name': 'John Doe',
+#         'email': 'johnDoe@gmail.com',
+#         'phone': '(123) 456-7890',
+#         'bio': 'An aspiring web developer.',
+#         'about': 'I am a web developer with experience in HTML, CSS, JavaScript, and PHP. I am passionate about creating beautiful and functional websites.',
+#         'socialMedia': {
+#             'twitter': 'https://twitter.com/',
+#             'facebook': 'https://www.facebook.com/',
+#             'instagram': 'https://www.instagram.com/'
+#         }
+#     }
 
-    generateNewHTML(userData)
+#     reposData = [
+#         {
+#             'name': 'Project 1',
+#             'about': 'This is a project.',
+#             'url': 'https://bard.google.com/',
+#             'display': True
+#         },
+#         {
+#             'name': 'Project 2',
+#             'about': 'This is a project.',
+#             'url': 'https://bard.google.com/',
+#             'display': False
+#         },
+#         {
+#             'name': 'Project 3',
+#             'about': 'This is a project.',
+#             'url': 'https://bard.google.com/',
+#             'display': True
+#         },
+#         {
+#             'name': 'Project 4',
+#             'about': 'This is a project.',
+#             'url': 'https://bard.google.com/',
+#             'display': False
+#         },
+#         {
+#             'name': 'Project 5',
+#             'about': 'This is a project.',
+#             'url': 'https://bard.google.com/',
+#             'display': True
+#         },
+#         {
+#             'name': 'Project 6',
+#             'about': 'This is a project.',
+#             'url': 'https://bard.google.com/',
+#             'display': True
+#         }
+
+#     ]
+
+#     githubUserData = {
+#         'username': 'JohnDoeGithub',
+#         'profilePic': 'https://avatars.githubusercontent.com/u/8?v=4',
+#         'bio': 'An aspiring web developer.',
+#     }
+
+
+#     generateNewHTML(userData, reposData, githubUserData)
