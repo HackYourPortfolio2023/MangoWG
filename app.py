@@ -97,7 +97,7 @@ def updateTemplate():
 
     print("Updating template... ")
 
-    TemplateGeneratorYattag.updateTemplate(userData, reposData, githubUserData)
+    TemplateGeneratorYattag.generateNewHTML(userData, reposData, githubUserData)
 
     print("Template Updated!")
 
@@ -134,6 +134,10 @@ def selectRepos():
             repo['display'] = True
         else:
             repo['display'] = False
+
+    # Save the data to a json file
+    with open('reposData.json', 'w') as outfile:
+        json.dump(reposData, outfile)
 
     print("Selection Updated!")
 

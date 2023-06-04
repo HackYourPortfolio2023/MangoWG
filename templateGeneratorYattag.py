@@ -12,6 +12,9 @@ def generateNewHTML(userData, reposData, githubUserData):
         githubUserData: github user data
     '''
 
+    # print(reposData[0])
+    # print(reposData[0].name)
+
     # Create a new document
     doc, tag, text = Doc().tagtext()
 
@@ -90,15 +93,19 @@ def generateNewHTML(userData, reposData, githubUserData):
                     # Profile Photo
                     with tag('div', klass='col-lg-4 d-flex align-items-center justify-content-center flex-wrap'):
                         doc.stag('img',
-                                 src=userData['avatar_url'],
+                                 src=githubUserData['profilePic'],
                                  alt='GitHub profile photo',
                                  klass='',
                                  style='width: 200px; height: 200px; border-radius: 50%')
                         with tag('div', klass='d-flex flex-column align-items-center justify-content-center'):
                             with tag('h1'):
                                 text(userData['name'])
-                            with tag('p', style='padding-left: 10px; padding-right: 10px'):
-                                text(githubUserData['bio'])
+                            with tag('h2'):
+                                text("Github: " + githubUserData['username'])
+
+                            if githubUserData['bio'] != None:
+                                with tag('p', style='padding-left: 10px; padding-right: 10px'):
+                                    text(githubUserData['bio'])
 
             # About
             with tag('div', klass='row d-flex align-items-center justify-content-center', id='about-section'):
@@ -124,21 +131,24 @@ def generateNewHTML(userData, reposData, githubUserData):
                         text('Projects')
                 doc.stag('br')
 
-                with tag('div', klass='row text-center'):
+                with tag('div', klass='row text-center d-flex align-items-center justify-content-center'):
                     for i in range(len(reposData)):
-                        with tag('div', klass='col-lg-4', style='padding: 10px'):
-                            # doc.stag('img',
-                            #          src='https://picsum.photos/140/140',
-                            #          klass='card-img-top',
-                            #          style='width: 140px; height: 140px; border-radius: 50%',
-                            #          alt='...')
-                            with tag('h3', klass='fw-normal'):
-                                text(reposData[i].name)
-                            with tag('p'):
-                                text(reposData[i].description)
-                            with tag('p'):
-                                with tag('a', klass='btn btn-secondary', href=reposData[i].html_url, target='_blank'):
-                                    text('View details')
+                        print(reposData[i])
+                        if reposData[i]["display"] == True:
+                            with tag('div', klass='col-lg-4', style='padding: 10px'):
+                                # doc.stag('img',
+                                #          src='https://picsum.photos/140/140',
+                                #          klass='card-img-top',
+                                #          style='width: 140px; height: 140px; border-radius: 50%',
+                                #          alt='...')
+                                with tag('h3', klass='fw-normal'):
+                                    text(reposData[i]["name"])
+                                if reposData[i]["about"] != None:
+                                    with tag('p'):
+                                        text(reposData[i]["about"])
+                                with tag('p'):
+                                    with tag('a', klass='btn btn-secondary', href=reposData[i]["url"], target='_blank'):
+                                        text('View details')
 
             doc.stag('br')
 
