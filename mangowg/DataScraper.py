@@ -37,7 +37,7 @@ def create_repo():
     user.create_repo(f"portfolio")
     os.system(f"dotenv set REPO {user.login}/portfolio")
     repo = g.get_repo(f"{user.login}/portfolio")
-    repo.create_file("readme.md", "Add readme", "Hello!")
+    repo.create_file("readme.md", "Add readme", "Hello! \n Please remember to go to Settings -> Pages -> Select main under branches -> Save")
 
 
 def auth():
