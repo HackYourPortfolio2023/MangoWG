@@ -30,7 +30,7 @@ def new():
 
 @app.command("push")
 def push():
-    """Pushes the files in the util folder to your GitHub repository"""
+    """Pushes the index.html to your GitHub repository"""
     files = ['index.html']
     DataScraper.update(files)
     print("Success!")
