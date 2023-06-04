@@ -35,5 +35,7 @@ jobs:
       run: chmod +x main | ./main 
     - name: Build package
       run: poetry build
-    - name: Publish package
+    - name: Configure token
       run: poetry config pypi-token.pypi ${{ secrets.PYPI_API_TOKEN }}
+    - name: Publish package
+      run: poetry publish
