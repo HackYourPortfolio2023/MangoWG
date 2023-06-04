@@ -143,21 +143,23 @@ def updateUserData():
     '''Updates the user data'''
     print("Updating profile... ")
 
+    userData = {
+        "socialMedia": {}
+    }
+
     print("Enter your name: ")
     userData['name'] = input()
     print("Enter your email: ")
     userData['email'] = input()
     print("Enter your phone number: ")
     userData['phone'] = input()
-    print("Enter your bio: ")
-    userData['bio'] = input()
     print("Enter your about: ")
     userData['about'] = input()
-    print("Enter your twitter: ")
+    print("Enter your twitter handle [optional]: ")
     userData['socialMedia']['twitter'] = input()
-    print("Enter your facebook: ")
+    print("Enter your facebook handle [optional]: ")
     userData['socialMedia']['facebook'] = input()
-    print("Enter your instagram: ")
+    print("Enter your instagram handle [optional]: ")
     userData['socialMedia']['instagram'] = input()
 
     # Save the data to a json file

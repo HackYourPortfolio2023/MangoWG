@@ -98,7 +98,7 @@ def generateNewHTML(userData, reposData, githubUserData):
                             with tag('h1'):
                                 text(userData['name'])
                             with tag('p', style='padding-left: 10px; padding-right: 10px'):
-                                text(userData['bio'])
+                                text(githubUserData['bio'])
 
             # About
             with tag('div', klass='row d-flex align-items-center justify-content-center', id='about-section'):
@@ -184,7 +184,6 @@ def generateNewHTML(userData, reposData, githubUserData):
 #         'name': 'John Doe',
 #         'email': 'johnDoe@gmail.com',
 #         'phone': '(123) 456-7890',
-#         'bio': 'An aspiring web developer.',
 #         'about': 'I am a web developer with experience in HTML, CSS, JavaScript, and PHP. I am passionate about creating beautiful and functional websites.',
 #         'socialMedia': {
 #             'twitter': 'https://twitter.com/',
