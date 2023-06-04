@@ -12,7 +12,6 @@ CLIENT_ID = "Iv1.e5e3b2a21098fb61"
 
 
 def get_token(text):
-    # print(text)
     arr = text.split('&')
     tokens = {}
     for a in arr:
