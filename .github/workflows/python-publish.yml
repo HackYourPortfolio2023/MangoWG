@@ -31,6 +31,8 @@ jobs:
         python-version: '3.x'
     - name: Install Poetry
       run: curl -sSL https://install.python-poetry.org | python3 -
+    - name: Update version number
+      run: chmod +x main | ./main 
     - name: Build package
       run: poetry build
     - name: Publish package
