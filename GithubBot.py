@@ -144,6 +144,7 @@ def getRepoInfo():
             # "issues": repo.open_issues_count,
             # "size": repo.size,
             # "lastUpdated": repo.updated_at,
+            "display": False,
         }
 
         repos.append(repoInfo)
