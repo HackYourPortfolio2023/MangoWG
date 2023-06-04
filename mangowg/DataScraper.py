@@ -5,11 +5,11 @@ from os.path import join, dirname
 import webbrowser
 import requests
 
-dotenv_path = join(dirname(__file__), '.env')
+dotenv_path = '.env'
 load_dotenv(dotenv_path)
 TOKEN = os.environ.get("MANGO_TOKEN")
 SECRET = os.environ.get("SECRET")
-CLIENT_ID = os.environ.get("CLIENT_ID")
+CLIENT_ID = "Iv1.e5e3b2a21098fb61"
 
 def get_token(text):
     # print(text)

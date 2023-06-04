@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mangowg"
-version = "0.1.2"
+version = "0.1.12"
 description = "A portfolio website generator"
 authors = ["Amelia <53657436+AmeliaTYR@users.noreply.github.com>"]
 readme = "README.md"
@@ -44,3 +44,8 @@ yattag = "1.15.1"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
+[tool.poetry.scripts]
+mangowg = "mangowg.mangowg:app"
+
+[package]
+include = ["mangowg", "mangowg.*", ".env"]

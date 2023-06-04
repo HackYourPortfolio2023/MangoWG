@@ -1,6 +1,6 @@
 import json
-import DataScraper
-import TemplateGeneratorYattag
+from mangowg import DataScraper
+from mangowg import TemplateGeneratorYattag
 
 from pprint import pprint
 import inquirer
