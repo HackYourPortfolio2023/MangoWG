@@ -1,7 +1,7 @@
 from yattag import Doc
 
 
-def generateNewHTML(userData):
+def generateNewHTML(userData, projectsData):
     '''
     Generates a new HTML from user input
 
@@ -126,11 +126,11 @@ def generateNewHTML(userData):
                 with tag('div', klass='row text-center'):
                     for _ in range(3):
                         with tag('div', klass='col-lg-4', style='padding: 10px'):
-                            doc.stag('img',
-                                     src='https://picsum.photos/140/140',
-                                     klass='card-img-top',
-                                     style='width: 140px; height: 140px; border-radius: 50%',
-                                     alt='...')
+                            # doc.stag('img',
+                            #          src='https://picsum.photos/140/140',
+                            #          klass='card-img-top',
+                            #          style='width: 140px; height: 140px; border-radius: 50%',
+                            #          alt='...')
                             with tag('h3', klass='fw-normal'):
                                 text('Heading')
                             with tag('p'):
@@ -192,4 +192,5 @@ if __name__ == '__main__':
             'instagram': 'https://www.instagram.com/'
         }
     }
+
     generateNewHTML(userData)

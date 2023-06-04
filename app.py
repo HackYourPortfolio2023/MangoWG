@@ -1,6 +1,3 @@
-import bot
-import os
-from typing import Annotated
 import GithubBot
 # import TemplateGeneratorYattag
 # import GetGithubInfo
@@ -11,6 +8,9 @@ from rich.progress import track
 
 app = typer.Typer()
 
+userData = {}
+projectsData = {}
+githubUserData = {}
 
 @app.command()
 def start():
@@ -54,6 +54,12 @@ def createTemplate():
 def getRepos():
     '''Gets all the repositories in your Github account'''
     GithubBot.getRepoInfo()
+
+@app.command("getInfo")
+def getInfo():
+    '''Gets your Github account information'''
+    GithubBot.getGithubInfo()
+
 
 
 if __name__ == "__main__":

@@ -44,6 +44,7 @@ def create_repo():
 
 
 def auth():
+    '''Authenticates the user if not already authenticated (token not found)'''
     token = TOKEN
     if not token:
         print("Creating token")
@@ -63,6 +64,7 @@ def auth():
 
 
 def create_blobs(files, repo):
+    '''Creates blobs for the files'''
     output = {}
     for file in files:
         f = open(file, 'r')
@@ -74,6 +76,7 @@ def create_blobs(files, repo):
 
 
 def create_tree(blobs, repo, master_sha):
+    '''Creates a tree for the files'''
     tree = []
     for blob in blobs:
         tree.append(InputGitTreeElement(
@@ -89,6 +92,7 @@ def create_tree(blobs, repo, master_sha):
 
 
 def update(files, repo_name=os.environ.get("REPO")):
+    '''Updates the repo with the files'''
     g = Github(TOKEN)
     repo = g.get_repo(repo_name)
     blobs = create_blobs(files, repo)
@@ -107,12 +111,22 @@ def update(files, repo_name=os.environ.get("REPO")):
     master_ref.edit(sha=commit.sha)
 
 def getGithubInfo():
+    '''Returns the username of the authenticated user'''
     g = Github(TOKEN)
-    user = g.get_user()
-    return user.login
+
+    userInfo = {
+        "username": g.get_user().login,
+        "profilePic": g.get_user().avatar_url,
+        "bio": g.get_user().bio,
+    }
+
+    return userInfo
 
 def getRepoInfo():
+    '''Returns the repo names of the authenticated user'''
     g = Github(TOKEN)
+
+    repos = []
 
     for repo in g.get_user().get_repos():
         # get the repo name, about, and url
@@ -120,6 +134,21 @@ def getRepoInfo():
         print(repo.description)
         print(repo.html_url)
 
+        repoInfo = {
+            "name": repo.name,
+            "about": repo.description,
+            "url": repo.html_url,
+            # "stars": repo.stargazers_count,
+            # "forks": repo.forks_count,
+            # "watchers": repo.watchers_count,
+            # "issues": repo.open_issues_count,
+            # "size": repo.size,
+            # "lastUpdated": repo.updated_at,
+        }
+
+        repos.append(repoInfo)
+
+    return repos
 
 # name = create_repo()
 # print(name)
