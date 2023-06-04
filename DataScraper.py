@@ -12,7 +12,7 @@ SECRET = os.environ.get("SECRET")
 CLIENT_ID = os.environ.get("CLIENT_ID")
 
 def get_token(text):
-    print(text)
+    # print(text)
     arr = text.split('&')
     tokens = {}
     for a in arr:
@@ -128,27 +128,14 @@ def getRepoInfo():
 
     for repo in g.get_user().get_repos():
         # get the repo name, about, and url
-        # print(repo.name)
-        # print(repo.description)
-        # print(repo.html_url)
-
         repoInfo = {
             "name": repo.name,
             "about": repo.description,
             "url": repo.html_url,
-            # "stars": repo.stargazers_count,
-            # "forks": repo.forks_count,
-            # "watchers": repo.watchers_count,
-            # "issues": repo.open_issues_count,
-            # "size": repo.size,
-            # "lastUpdated": repo.updated_at,
+
             "display": False,
         }
 
         repos.append(repoInfo)
 
     return repos
-
-# name = create_repo()
-# print(name)
-# os.system(f"dotenv set REPO {name}")

@@ -1,5 +1,5 @@
 import json
-import GithubBot
+import DataScraper
 import TemplateGeneratorYattag
 
 from pprint import pprint
@@ -21,18 +21,18 @@ def start():
     """Starts the program"""
     print("Welcome!")
     print("Authenticating")
-    GithubBot.auth()
+    DataScraper.auth()
 
 @app.command("new")
 def new():
     """Creates a new repo: Portfolio"""
-    GithubBot.create_repo()
+    DataScraper.create_repo()
 
 @app.command("push")
 def push():
     """Pushes the files in the util folder to your GitHub repository"""
     files = ['index.html']
-    GithubBot.update(files)
+    DataScraper.update(files)
     print("Success!")
 
 ##### Data Selection #####
@@ -40,7 +40,7 @@ def push():
 @app.command("getRepos")
 def getRepos():
     '''Gets all the repositories in your Github account'''
-    reposData = GithubBot.getRepoInfo()
+    reposData = DataScraper.getRepoInfo()
     # print(reposData)
 
     # Save the data to a json file
@@ -50,7 +50,7 @@ def getRepos():
 @app.command("getGithubInfo")
 def getGithubInfo():
     '''Gets your Github account information'''
-    githubUserData = GithubBot.getGithubInfo()
+    githubUserData = DataScraper.getGithubInfo()
     # print(githubUserData)
 
     # Save the data to a json file
