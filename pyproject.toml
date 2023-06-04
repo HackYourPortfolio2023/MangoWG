@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "mangowg"
-version = "0.1.0"
+version = "0.1.2"
 description = "A portfolio website generator"
 authors = ["Amelia <53657436+AmeliaTYR@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 ansicon = "1.89.0"
 blessed = "1.20.0"
 certifi = "2023.5.7"
