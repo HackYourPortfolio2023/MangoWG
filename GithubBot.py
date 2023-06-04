@@ -115,6 +115,7 @@ def getGithubInfo():
         "username": g.get_user().login,
         "profilePic": g.get_user().avatar_url,
         "bio": g.get_user().bio,
+        "url": g.get_user().html_url,
     }
 
     return userInfo

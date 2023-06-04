@@ -133,7 +133,7 @@ def generateNewHTML(userData, reposData, githubUserData):
 
                 with tag('div', klass='row text-center d-flex align-items-center justify-content-center'):
                     for i in range(len(reposData)):
-                        print(reposData[i])
+                        # print(reposData[i])
                         if reposData[i]["display"] == True:
                             with tag('div', klass='col-lg-4', style='padding: 10px'):
                                 # doc.stag('img',
@@ -173,15 +173,21 @@ def generateNewHTML(userData, reposData, githubUserData):
                             with tag('div', klass='col-md-4'):
                                 with tag('h3'):
                                     text('Social Media')
-                                with tag('a', klass='btn btn-outline-light', href=userData['socialMedia']['twitter']):
-                                    with tag('i', klass='fab fa-twitter'):
+                                with tag('a', klass='btn btn-outline-light', href=githubUserData['url']):
+                                    with tag('i', klass='fab fa-github'):
                                         pass
-                                with tag('a', klass='btn btn-outline-light', href=userData['socialMedia']['facebook']):
-                                    with tag('i', klass='fab fa-facebook'):
-                                        pass
-                                with tag('a', klass='btn btn-outline-light', href=userData['socialMedia']['instagram']):
-                                    with tag('i', klass='fab fa-instagram'):
-                                        pass
+                                if userData['socialMedia']['twitter'] != None and userData['socialMedia']['twitter'] != "":
+                                    with tag('a', klass='btn btn-outline-light', href='https://twitter.com/' + userData['socialMedia']['twitter']):
+                                        with tag('i', klass='fab fa-twitter'):
+                                            pass
+                                if userData['socialMedia']['facebook'] != None and userData['socialMedia']['facebook'] != "":
+                                    with tag('a', klass='btn btn-outline-light', href=userData['socialMedia']['facebook']):
+                                        with tag('i', klass='fab fa-facebook'):
+                                            pass
+                                if userData['socialMedia']['instagram'] != None and userData['socialMedia']['instagram'] != "":
+                                    with tag('a', klass='btn btn-outline-light', href=userData['socialMedia']['instagram']):
+                                        with tag('i', klass='fab fa-instagram'):
+                                            pass
 
     # Save the HTML code to a file
     with open('index.html', 'w') as file:

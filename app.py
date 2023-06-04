@@ -35,25 +35,6 @@ def push():
     GithubBot.update(files)
     print("Success!")
 
-##### Template Setup #####
-
-@app.command("create")
-def createTemplate():
-    """Creates a new html template if not already exists"""
-
-    for value in track(range(100), description="Processing..."):
-        time.sleep(0.01)
-        if value == 10:
-            print(f"Checking for existing template")
-
-        if value == 30:
-            print(f"Creating new template")
-
-        if value == 50:
-            print(f"Creating new template")
-
-    print(f"Template successfully created")
-
 ##### Data Selection #####
 
 @app.command("getRepos")
@@ -66,8 +47,8 @@ def getRepos():
     with open('reposData.json', 'w') as outfile:
         json.dump(reposData, outfile)
 
-@app.command("getInfo")
-def getInfo():
+@app.command("getGithubInfo")
+def getGithubInfo():
     '''Gets your Github account information'''
     githubUserData = GithubBot.getGithubInfo()
     # print(githubUserData)
@@ -144,7 +125,7 @@ def selectRepos():
 
 @app.command("updateWholeProfile")
 def updateUserData():
-    '''Updates the user data'''
+    '''Updates all the user data at once'''
     print("Updating profile... ")
 
     userData = {
