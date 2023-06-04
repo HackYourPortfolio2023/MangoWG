@@ -1,0 +1,5 @@
+#!/bin/bash
+source version.txt
+echo "version=$(($version + 1))" > version.txt
+source version.txt
+echo "version=0.1.$version"
